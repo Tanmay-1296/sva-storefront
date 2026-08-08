@@ -1,0 +1,124 @@
+# SVS Smart Key Chain — Storefront
+
+Next.js + TypeScript + TailwindCSS storefront scaffold with Prisma schema, a seed script, Stripe Checkout integration, and a GitHub Actions workflow to run migrations and seed the database.
+
+This repo is a starting point — you must provide your own database (Supabase/Postgres), Stripe keys, and optionally a custom domain & Vercel project to deploy.
+
+---
+
+## File map (important files)
+
+- pages/ — Next.js pages (including product page and API routes)
+- components/ — React UI components and cart context
+- prisma/schema.prisma — Prisma data model
+- prisma/seed.js — seed data (creates demo product + reviews)
+- pages/api/checkout/session.ts — creates Stripe Checkout sessions
+- pages/api/webhooks/stripe.ts — Stripe webhook listener (persists orders)
+- .github/workflows/prisma-deploy.yml — CI: run migrations + seed on push to `main`
+
+---
+
+## Quick start (local)
+
+1. Clone the repo:
+   - git clone git@github.com:<your-username>/sva-storefront.git
+   - cd sva-storefront
+
+2. Copy the example env (create `.env.local`) and set values:
+   - DATABASE_URL=postgresql://... (your Supabase/Postgres connection)
+   - NEXT_PUBLIC_SITE_URL=http://localhost:3000
+   - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+   - STRIPE_SECRET_KEY=sk_test_...
+   - STRIPE_WEBHOOK_SECRET=whsec_... (only after creating webhook)
+
+3. Install and generate:
+   - npm install
+   - npx prisma generate
+
+4. Run migrations & seed locally (dev):
+   - npx prisma migrate dev --name init
+   - node prisma/seed.js
+
+5. Start dev server:
+   - npm run dev
+   - Open http://localhost:3000/product/svs-smart-key-chain
+
+---
+
+## Deploying (Vercel)
+
+1. Import this repo into Vercel (vercel.com → New Project → Import from GitHub).
+2. Add environment variables in Vercel Project Settings (Production):
+   - DATABASE_URL — your Supabase/Postgres connection string
+   - NEXT_PUBLIC_SITE_URL — https://<your-vercel-app>.vercel.app
+   - NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY — pk_test_...
+   - STRIPE_SECRET_KEY — sk_test_...
+   - STRIPE_WEBHOOK_SECRET — (set after creating webhook in Stripe)
+3. After first deploy, create the Stripe webhook and add the signing secret to Vercel (STRIPE_WEBHOOK_SECRET).
+
+---
+
+## Stripe setup (Checkout + Webhooks + Apple Pay)
+
+- Use Stripe test keys for development.
+- Create Checkout session using the API route `/api/checkout/session`.
+- Webhook:
+  - Add endpoint in Stripe: `https://<your-domain-or-vercel-app>/api/webhooks/stripe`
+  - Subscribe to: `checkout.session.completed` (optionally `payment_intent.succeeded`)
+  - Copy the webhook signing secret (whsec_...) into Vercel as STRIPE_WEBHOOK_SECRET and into GitHub Secrets if you run CI that needs it.
+- Apple Pay / Wallet verification (optional):
+  - In Stripe Dashboard → Payments → Apple Pay, add your domain.
+  - Stripe provides a verification file named `apple-developer-merchantid-domain-association`.
+  - Place that file at `public/.well-known/apple-developer-merchantid-domain-association` (exact contents from Stripe) and redeploy.
+  - Click Verify in Stripe.
+
+---
+
+## GitHub Actions (CI)
+
+File: `.github/workflows/prisma-deploy.yml` — runs on pushes to `main` and executes:
+
+- npm ci
+- npx prisma generate
+- npx prisma migrate deploy (requires `DATABASE_URL` in repo Secrets)
+- node prisma/seed.js
+
+Set the repository secret:
+- Repo → Settings → Secrets → Actions → New secret
+  - Name: DATABASE_URL
+  - Value: your DB connection string
+
+---
+
+## Environment variables (summary)
+
+- DATABASE_URL — required (Postgres/Supabase connection string)
+- NEXT_PUBLIC_SITE_URL — public URL for success/cancel redirect
+- NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY — Stripe publishable key
+- STRIPE_SECRET_KEY — Stripe secret key (server-only)
+- STRIPE_WEBHOOK_SECRET — Stripe webhook signing secret (from Dashboard)
+
+Do NOT commit secrets into the repo.
+
+---
+
+## Troubleshooting
+
+- "Prisma migrate deploy" fails in Actions:
+  - Ensure DATABASE_URL secret is set and reachable from CI (network rules on managed DBs may block GitHub Actions).
+- Stripe webhook signature verification fails:
+  - Make sure you set STRIPE_WEBHOOK_SECRET to the exact signing secret shown when creating the webhook.
+  - For local testing, use the Stripe CLI to forward events.
+- Apple Pay verification fails:
+  - Ensure the file in `public/.well-known/` matches Stripe’s file exactly (no extra whitespace or filename changes) and is served over HTTPS.
+
+---
+
+## Next steps I can help with
+
+- Walk through adding these files in the GitHub web UI (I can give exact copy/paste steps).
+- Help create a Supabase project and get DATABASE_URL.
+- Help configure Stripe webhook and Apple Pay verification.
+- Convert TypeScript files to plain JavaScript if you prefer.
+
+If you want the README file saved for you, create a file named `README.md` at the repo root and paste this content into it.
