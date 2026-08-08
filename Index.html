@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVA Smart Key Chain - SVA Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amazonDark: '#131921',
+                        amazonLight: '#232f3e',
+                        amazonBg: '#F3F3F3',
+                        amazonBtn: '#FFD814',
+                        amazonBuy: '#FFA41C',
+                        amazonLink: '#007185'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #F3F3F3; }
+        .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        /* Hide scrollbar for gallery */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-gray-900 antialiased">
+
+    <!-- TOP NAVBAR -->
+    <header class="bg-amazonDark text-white">
+        <div class="container mx-auto px-4 py-2 flex items-center justify-between gap-4">
+            <!-- Left: Logo & Location -->
+            <div class="flex items-center gap-4">
+                <div class="text-2xl font-bold tracking-tighter cursor-pointer">
+                    SVA<span class="text-amazonBtn">.</span>
+                </div>
+                <div class="hidden md:flex flex-col cursor-pointer hover:border-white border border-transparent p-1 rounded">
+                    <span class="text-gray-300 text-xs pl-4">Deliver to</span>
+                    <span class="text-sm font-bold"><i class="fa-solid fa-location-dot mr-1"></i> Select your address</span>
+                </div>
+            </div>
+
+            <!-- Middle: Search Bar -->
+            <div class="flex-grow hidden sm:flex">
+                <select class="bg-gray-100 text-gray-700 text-sm px-2 rounded-l-md border-r border-gray-300 focus:outline-none cursor-pointer">
+                    <option>All Departments</option>
+                    <option>Keychains</option>
+                    <option>Bundles</option>
+                    <option>Accessories</option>
+                </select>
+                <input type="text" placeholder="Search SVA..." class="w-full px-4 py-2 text-black focus:outline-none">
+                <button class="bg-[#F3A847] hover:bg-[#e39632] text-black px-4 py-2 rounded-r-md transition">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+
+            <!-- Right: Account, Orders, Cart -->
+            <div class="flex items-center gap-4">
+                <div class="hidden lg:flex flex-col cursor-pointer hover:border-white border border-transparent p-1 rounded">
+                    <span class="text-xs">Hello, Sign in</span>
+                    <span class="text-sm font-bold">Account & Lists <i class="fa-solid fa-caret-down text-gray-400"></i></span>
+                </div>
+                <div class="hidden lg:flex flex-col cursor-pointer hover:border-white border border-transparent p-1 rounded">
+                    <span class="text-xs">Returns</span>
+                    <span class="text-sm font-bold">& Orders</span>
+                </div>
+                <div class="flex items-center cursor-pointer hover:border-white border border-transparent p-1 rounded relative" onclick="toggleCart()">
+                    <div class="text-3xl font-bold relative">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span id="cart-count" class="absolute -top-1 left-3 text-amazonBuy text-base bg-amazonDark rounded-full px-1">0</span>
+                    </div>
+                    <span class="text-sm font-bold mt-3 ml-1">Cart</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SUB-HEADER BAR -->
+    <nav class="bg-amazonLight text-white text-sm">
+        <div class="container mx-auto px-4 py-2 flex gap-4 overflow-x-auto no-scrollbar">
+            <a href="#" class="font-bold flex items-center gap-1 hover:border-white border border-transparent px-1"><i class="fa-solid fa-bars"></i> All</a>
+            <a href="#" class="hover:border-white border border-transparent px-1">Today's Deals</a>
+            <a href="#" class="hover:border-white border border-transparent px-1">Customer Service</a>
+            <a href="#" class="hover:border-white border border-transparent px-1">Registry</a>
+            <a href="#" class="hover:border-white border border-transparent px-1">Gift Cards</a>
+            <a href="#" class="hover:border-white border border-transparent px-1">Sell</a>
+        </div>
+    </nav>
+
+    <!-- MAIN PDP LAYOUT -->
+    <main class="container mx-auto px-4 py-6">
+        <div class="bg-white p-6 shadow-sm rounded grid grid-cols-1 md:grid-cols-12 gap-8">
+            
+            <!-- LEFT COLUMN: Image Gallery -->
+            <div class="md:col-span-4 flex gap-4">
+                <div class="flex flex-col gap-2">
+                    <img src="https://placehold.co/60x60/f3f3f3/333?text=Img+1" class="border border-amazonBuy rounded cursor-pointer hover:shadow" alt="Thumbnail">
+                    <img src="https://placehold.co/60x60/f3f3f3/333?text=Img+2" class="border border-gray-300 rounded cursor-pointer hover:shadow" alt="Thumbnail">
+                    <img src="https://placehold.co/60x60/f3f3f3/333?text=Video" class="border border-gray-300 rounded cursor-pointer hover:shadow relative" alt="Video Thumbnail">
+                </div>
+                <div class="flex-grow">
+                    <img src="https://placehold.co/500x500/f3f3f3/333?text=SVA+Smart+Key+Chain" class="w-full object-cover rounded cursor-zoom-in" alt="Main Product Image">
+                </div>
+            </div>
+
+            <!-- CENTER COLUMN: Product Info -->
+            <div class="md:col-span-5 flex flex-col gap-3">
+                <h1 class="text-2xl font-medium leading-tight">SVA Smart Key Chain - Instant App-Free Keychain Finder with 2000Hz High-Decibel Chime</h1>
+                <a href="#" class="text-amazonLink hover:underline text-sm hover:text-orange-600">Visit the SVA Store</a>
+                
+                <!-- Ratings -->
+                <div class="flex items-center gap-2 border-b pb-3">
+                    <div class="text-amazonBuy text-sm">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <span class="text-amazonLink text-sm hover:underline cursor-pointer">342 ratings</span>
+                    <span class="text-gray-400">|</span>
+                    <span class="text-amazonLink text-sm hover:underline cursor-pointer">68 answered questions</span>
+                </div>
+
+                <!-- Price -->
+                <div class="flex flex-col gap-1 py-2">
+                    <div class="flex items-start text-red-600 text-lg">
+                        <span class="text-2xl">-25%</span>
+                        <span class="text-3xl font-medium ml-2 text-black"><span class="text-base font-normal align-top">$</span>29<span class="text-base font-normal align-top">99</span></span>
+                    </div>
+                    <div class="text-sm text-gray-500">List Price: <span class="line-through">$39.99</span></div>
+                    <p class="text-sm mt-2">Get <span class="font-bold text-black">Fast, Free Shipping</span> with <span class="text-amazonLink font-bold cursor-pointer">SVA Prime</span></p>
+                    <p class="text-sm">FREE Returns</p>
+                </div>
+
+                <!-- Product Details -->
+                <div class="border-t pt-4">
+                    <h3 class="font-bold mb-2">About this item</h3>
+                    <ul class="list-disc pl-5 text-sm space-y-2 text-gray-800">
+                        <li><strong>App-Free Instant Control:</strong> Operates strictly on a local <code class="bg-gray-100 px-1 rounded">192.168.4.1</code> Wi-Fi portal for immediate access without downloading bloatware.</li>
+                        <li><strong>Piercing Audio:</strong> The 2000Hz high-decibel chime cuts through heavy couch cushions, gym bags, and ambient noise so you find your keys instantly.</li>
+                        <li><strong>100% Standalone & Private:</strong> No subscription fees, no cloud tracking, and no Bluetooth pairing nightmares. Your location data remains fully private.</li>
+                        <li><strong>Durable & Sleek:</strong> Constructed with aircraft-grade aluminum to withstand daily drops and scrapes while looking modern.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Buy Box -->
+            <div class="md:col-span-3">
+                <div class="border border-gray-300 rounded p-4 flex flex-col gap-3">
+                    <div class="text-3xl font-medium"><span class="text-base font-normal align-top">$</span>29<span class="text-base font-normal align-top">99</span></div>
+                    <p class="text-sm text-gray-600">FREE delivery <strong>Tomorrow</strong>. Order within <span class="text-green-700">3 hrs 14 mins</span></p>
+                    <p class="text-sm text-amazonLink flex items-center gap-1 mt-2 hover:underline cursor-pointer"><i class="fa-solid fa-location-dot"></i> Deliver to - Select address</p>
+                    
+                    <h2 class="text-xl text-green-700 font-bold mt-2">In Stock</h2>
+                    
+                    <select id="qty-selector" class="border border-gray-300 rounded p-1 w-20 bg-gray-100 shadow-sm outline-none cursor-pointer">
+                        <option value="1">Qty: 1</option>
+                        <option value="2">Qty: 2</option>
+                        <option value="3">Qty: 3</option>
+                        <option value="4">Qty: 4</option>
+                        <option value="5">Qty: 5</option>
+                    </select>
+
+                    <button onclick="addToCart()" class="bg-amazonBtn hover:bg-[#F3C800] text-sm w-full py-2 rounded-full shadow-sm font-medium transition mt-2">Add to Cart</button>
+                    <button onclick="openCheckout()" class="bg-amazonBuy hover:bg-[#E39000] text-sm w-full py-2 rounded-full shadow-sm font-medium transition">Buy Now</button>
+
+                    <div class="flex gap-2 text-sm text-gray-500 mt-2">
+                        <i class="fa-solid fa-lock mt-1"></i>
+                        <span class="text-amazonLink hover:underline cursor-pointer">Secure transaction</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-x-2 text-xs text-gray-500 mt-2">
+                        <span>Ships from</span> <span class="text-black">SVA Direct</span>
+                        <span>Sold by</span> <span class="text-amazonLink hover:underline cursor-pointer">SVA Official Store</span>
+                        <span>Returns</span> <span class="text-amazonLink hover:underline cursor-pointer">Eligible for Return</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FREQUENTLY BOUGHT TOGETHER -->
+        <section class="bg-white p-6 shadow-sm rounded mt-6 border-t-4 border-amazonBg">
+            <h2 class="text-xl font-bold mb-4">Frequently bought together</h2>
+            <div class="flex flex-col md:flex-row items-center gap-6">
+                <div class="flex items-center gap-4">
+                    <img src="https://placehold.co/100x100/f3f3f3/333?text=Main" class="w-24 h-24 object-cover" alt="Main Item">
+                    <i class="fa-solid fa-plus text-gray-400"></i>
+                    <img src="https://placehold.co/100x100/f3f3f3/333?text=Battery" class="w-24 h-24 object-cover" alt="Battery Pack">
+                    <i class="fa-solid fa-plus text-gray-400"></i>
+                    <img src="https://placehold.co/100x100/f3f3f3/333?text=Case" class="w-24 h-24 object-cover" alt="Case">
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm">Total price: <span class="text-lg font-bold text-[#B12704]">$54.97</span></p>
+                    <button class="bg-amazonBtn hover:bg-[#F3C800] text-sm px-6 py-1 rounded-full shadow-sm">Add all three to Cart</button>
+                </div>
+            </div>
+            <ul class="mt-4 text-sm space-y-1">
+                <li><input type="checkbox" checked class="mr-2 accent-amazonLink"><strong>This item:</strong> SVA Smart Key Chain - $29.99</li>
+                <li><input type="checkbox" checked class="mr-2 accent-amazonLink"><a href="#" class="text-amazonLink hover:underline">SVA Extra Battery Pack (2-Pack)</a> - $14.99</li>
+                <li><input type="checkbox" checked class="mr-2 accent-amazonLink"><a href="#" class="text-amazonLink hover:underline">SVA Protective Silicone Case (Black)</a> - $9.99</li>
+            </ul>
+        </section>
+
+        <!-- REVIEWS & Q&A -->
+        <section class="bg-white p-6 shadow-sm rounded mt-6 grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="col-span-1 border-r pr-6">
+                <h2 class="text-xl font-bold mb-2">Customer reviews</h2>
+                <div class="flex items-center gap-2 mb-2">
+                    <div class="text-amazonBuy text-lg"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+                    <span class="text-lg">4.8 out of 5</span>
+                </div>
+                <p class="text-sm text-gray-500 mb-4">342 global ratings</p>
+                <!-- Rating Bars -->
+                <div class="space-y-2 text-sm text-amazonLink">
+                    <div class="flex items-center gap-2 hover:underline cursor-pointer"><span class="w-12">5 star</span> <div class="flex-grow bg-gray-200 h-4 rounded overflow-hidden"><div class="bg-amazonBuy h-full w-[85%]"></div></div> <span>85%</span></div>
+                    <div class="flex items-center gap-2 hover:underline cursor-pointer"><span class="w-12">4 star</span> <div class="flex-grow bg-gray-200 h-4 rounded overflow-hidden"><div class="bg-amazonBuy h-full w-[10%]"></div></div> <span>10%</span></div>
+                    <div class="flex items-center gap-2 hover:underline cursor-pointer"><span class="w-12">3 star</span> <div class="flex-grow bg-gray-200 h-4 rounded overflow-hidden"><div class="bg-amazonBuy h-full w-[3%]"></div></div> <span>3%</span></div>
+                    <div class="flex items-center gap-2 hover:underline cursor-pointer"><span class="w-12">2 star</span> <div class="flex-grow bg-gray-200 h-4 rounded overflow-hidden"><div class="bg-amazonBuy h-full w-[1%]"></div></div> <span>1%</span></div>
+                    <div class="flex items-center gap-2 hover:underline cursor-pointer"><span class="w-12">1 star</span> <div class="flex-grow bg-gray-200 h-4 rounded overflow-hidden"><div class="bg-amazonBuy h-full w-[1%]"></div></div> <span>1%</span></div>
+                </div>
+            </div>
+            
+            <div class="col-span-2">
+                <!-- Images Grid -->
+                <h3 class="font-bold mb-2">Reviews with images</h3>
+                <div class="flex gap-2 mb-6 overflow-x-auto no-scrollbar">
+                    <img src="https://placehold.co/100x100/f3f3f3/333?text=Review+1" class="w-24 h-24 rounded object-cover cursor-pointer hover:opacity-80">
+                    <img src="https://placehold.co/100x100/f3f3f3/333?text=Review+2" class="w-24 h-24 rounded object-cover cursor-pointer hover:opacity-80">
+                    <img src="https://placehold.co/100x100/f3f3f3/333?text=Review+3" class="w-24 h-24 rounded object-cover cursor-pointer hover:opacity-80">
+                    <img src="https://placehold.co/100x100/f3f3f3/333?text=Review+4" class="w-24 h-24 rounded object-cover cursor-pointer hover:opacity-80">
+                </div>
+
+                <!-- Q&A -->
+                <div class="border-t pt-4">
+                    <h3 class="font-bold text-lg mb-4">Customer questions & answers</h3>
+                    <input type="text" placeholder="Have a question? Search for answers" class="w-full border border-gray-400 rounded px-3 py-2 mb-4 shadow-inner focus:outline-amazonBuy">
+                    
+                    <div class="mb-4">
+                        <div class="flex gap-2">
+                            <span class="font-bold w-6">Q:</span>
+                            <span class="text-sm font-medium text-amazonLink hover:underline cursor-pointer">Does this require an app download?</span>
+                        </div>
+                        <div class="flex gap-2 mt-1">
+                            <span class="font-bold w-6">A:</span>
+                            <span class="text-sm">No, it is 100% app-free. You simply connect to its local Wi-Fi portal (192.168.4.1) using your phone's browser to trigger the chime. Very fast and respects privacy! <br><span class="text-gray-500 text-xs">By SVA Official Store on August 2, 2026</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- CHECKOUT MODAL (Hidden by default) -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-4 overflow-hidden">
+            <div class="bg-gray-100 px-6 py-4 border-b flex justify-between items-center">
+                <h2 class="text-xl font-bold">Secure Checkout</h2>
+                <button onclick="closeCheckout()" class="text-gray-500 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Payment Flow -->
+                <div>
+                    <h3 class="font-bold text-lg mb-4">1. Shipping Address</h3>
+                    <div class="text-sm text-gray-700 mb-6 p-3 border rounded bg-gray-50">
+                        <p class="font-bold">John Doe</p>
+                        <p>123 Main Street, Apt 4B</p>
+                        <p>New York, NY 10001</p>
+                        <a href="#" class="text-amazonLink hover:underline mt-2 inline-block">Change address</a>
+                    </div>
+
+                    <h3 class="font-bold text-lg mb-4">2. Payment Method</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-2 p-2 border rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="payment" checked class="accent-amazonBuy">
+                            <i class="fa-brands fa-cc-visa text-blue-800 text-xl"></i>
+                            <span class="text-sm">Ending in 4242</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="payment" class="accent-amazonBuy">
+                            <i class="fa-brands fa-apple text-xl"></i>
+                            <span class="text-sm">Apple Pay</span>
+                        </label>
+                        <label class="flex items-center gap-2 p-2 border rounded cursor-pointer hover:bg-gray-50">
+                            <input type="radio" name="payment" class="accent-amazonBuy">
+                            <i class="fa-brands fa-google text-xl text-green-600"></i>
+                            <span class="text-sm">Google Pay</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="border-l pl-0 md:pl-6">
+                    <h3 class="font-bold text-lg mb-4">Order Summary</h3>
+                    <div class="space-y-2 text-sm mb-4 border-b pb-4">
+                        <div class="flex justify-between"><span>Items (<span id="modal-qty">1</span>):</span> <span>$<span id="modal-subtotal">29.99</span></span></div>
+                        <div class="flex justify-between"><span>Shipping & handling:</span> <span>$0.00</span></div>
+                        <div class="flex justify-between"><span>Total before tax:</span> <span>$<span id="modal-pretax">29.99</span></span></div>
+                        <div class="flex justify-between"><span>Estimated tax (8%):</span> <span>$<span id="modal-tax">2.40</span></span></div>
+                    </div>
+                    <div class="flex justify-between font-bold text-lg text-[#B12704] mb-6">
+                        <span>Order total:</span>
+                        <span>$<span id="modal-total">32.39</span></span>
+                    </div>
+                    <button onclick="placeOrder()" class="w-full bg-amazonBuy hover:bg-[#E39000] py-3 rounded shadow font-bold text-sm transition">
+                        Place your order
+                    </button>
+                    <p class="text-xs text-center text-gray-500 mt-4">By placing your order, you agree to SVA's privacy notice and conditions of use.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-green-700 text-white px-6 py-3 rounded shadow-lg transition-opacity duration-300 opacity-0 pointer-events-none">
+        <i class="fa-solid fa-circle-check mr-2"></i> Added to Cart
+    </div>
+
+    <script>
+        let cartTotal = 0;
+        const productPrice = 29.99;
+
+        function addToCart() {
+            const qty = parseInt(document.getElementById('qty-selector').value);
+            cartTotal += qty;
+            document.getElementById('cart-count').innerText = cartTotal;
+            
+            // Show toast
+            const toast = document.getElementById('toast');
+            toast.classList.remove('opacity-0');
+            toast.classList.add('opacity-100');
+            setTimeout(() => {
+                toast.classList.remove('opacity-100');
+                toast.classList.add('opacity-0');
+            }, 3000);
+        }
+
+        function openCheckout() {
+            const qty = parseInt(document.getElementById('qty-selector').value);
+            const subtotal = (qty * productPrice);
+            const tax = (subtotal * 0.08);
+            const total = subtotal + tax;
+
+            document.getElementById('modal-qty').innerText = qty;
+            document.getElementById('modal-subtotal').innerText = subtotal.toFixed(2);
+            document.getElementById('modal-pretax').innerText = subtotal.toFixed(2);
+            document.getElementById('modal-tax').innerText = tax.toFixed(2);
+            document.getElementById('modal-total').innerText = total.toFixed(2);
+
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function placeOrder() {
+            alert('Order placed successfully via Stripe gateway simulation!');
+            closeCheckout();
+        }
+
+        function toggleCart() {
+            alert(`You have ${cartTotal} items in your cart. This would slide out a cart drawer component.`);
+        }
+    </script>
+</body>
+</html>
